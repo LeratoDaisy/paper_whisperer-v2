@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Paper Whisperer</title>
+<meta name="description" content="Photograph any official letter. Paper Whisperer explains what it says, what to do and by when, in your home language.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="topbar">
+    <a class="wordmark" href="#" id="brand" aria-label="Paper Whisperer, back to start">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <rect x="5" y="2.5" width="16" height="21" rx="2.5" fill="currentColor" opacity="0.14"/>
+        <rect x="5" y="2.5" width="16" height="21" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M2 14h22" stroke="var(--beam)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M9 7.5h8M9 10.5h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+      Paper Whisperer
+    </a>
+    <span class="engine-state" id="engine-state" data-mode="pending" role="status"><i></i><span id="engine-text">Starting</span></span>
+  </header>
+
+  <main id="main">
+
+    <!-- HOME -->
+    <section class="home" id="view-home" aria-labelledby="home-title">
+      <div>
+        <h1 id="home-title" tabindex="-1">Any letter, in plain words.</h1>
+        <p class="lede">Photograph a bill, notice or form. Paper Whisperer tells you what it says, what to do and by when, in the language you speak at home.</p>
+
+        <div class="cta-row">
+          <label class="btn btn-primary file-btn" id="scan-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M3 12h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Scan a letter
+            <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/gif,image/*" multiple>
+          </label>
+          <button class="btn" type="button" id="paste-btn" aria-expanded="false" aria-controls="paste-panel">Paste text</button>
+        </div>
+
+        <div class="lang-row">
+          <label for="lang">Explain it in</label>
+          <select class="select" id="lang" name="lang"></select>
+        </div>
+
+        <div class="paste-panel" id="paste-panel" hidden>
+          <label class="visually-hidden" for="paste-text">Letter text</label>
+          <textarea class="textarea" id="paste-text" placeholder="Paste the text of your letter, SMS or email here"></textarea>
+          <div class="paste-actions">
+            <button class="btn btn-primary btn-small" type="button" id="paste-go">Explain this</button>
+            <button class="btn btn-quiet btn-small" type="button" id="paste-cancel">Cancel</button>
+          </div>
+        </div>
+
+        <p class="hint">Letter has more than one page? Pick all the photos together (up to 4).</p>
+
+        <p class="notice" id="photo-note" hidden></p>
+
+        <section class="saved" id="saved" hidden aria-labelledby="saved-title">
+          <div class="saved-head">
+            <h2 id="saved-title">Your saved letters</h2>
+            <button class="btn btn-quiet btn-small" type="button" id="saved-clear">Clear all</button>
+          </div>
+          <ul class="saved-list" id="saved-list"></ul>
+          <p class="hint">Saved on this phone only. We keep the explanation, not your photo or the letter text.</p>
+        </section>
+
+        <div class="examples">
+          <h2>Or try an example letter</h2>
+          <div class="chips" id="examples"></div>
+        </div>
+
+        <p class="privacy">Your letter is used only to write the explanation. Nothing is saved unless you tap Save on this phone.</p>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="sheet-wrap">
+          <div class="brackets"><span></span><span></span><span></span><span></span></div>
+          <div class="sheet">
+            <div class="sheet-head">
+              <div class="sheet-logo"></div>
+              <div class="sheet-title">HIGHVELD METRO<small>Revenue Management Unit</small></div>
+            </div>
+            <p class="jargon">Notwithstanding previous reminders, you are hereby notified in terms of Section 102 of the Local Government: Municipal Systems Act that the account referred to above is in arrears.</p>
+            <p class="jargon">Unless remittance of the arrears is received on or before the date stated, services may be restricted without further notice, and the matter may be referred for recovery, with a reconnection fee payable.</p>
+            <p class="jargon">The account holder may, prior to the expiry of the aforementioned period, make application for a payment arrangement at any Customer Care Centre.</p>
+            <p class="jargon">Failure to comply shall not affect the right of the Municipality to institute such further proceedings as may be competent in law.</p>
+            <div class="plain">
+              <p class="plain-big">Pay R7 766.75 by 30 October.</p>
+              <ul>
+                <li>Services may be cut if you do not</li>
+                <li>You can ask for a payment plan</li>
+                <li>Take your ID and a payslip</li>
+              </ul>
+            </div>
+            <div class="beam"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- READING -->
+    <section class="reading" id="view-reading" hidden aria-labelledby="reading-title">
+      <div class="sheet-wrap">
+        <div class="brackets"><span></span><span></span><span></span><span></span></div>
+        <div class="sheet sheet-reading" id="reading-sheet">
+          <div class="sheet-body" id="reading-body"></div>
+          <div class="beam"></div>
+        </div>
+      </div>
+      <div>
+        <h2 id="reading-title" tabindex="-1">Reading your letter</h2>
+        <p class="status" id="reading-status" role="status" aria-live="polite"></p>
+      </div>
+      <button class="btn btn-small" type="button" id="reading-cancel">Cancel</button>
+    </section>
+
+    <!-- ERROR -->
+    <section class="reading" id="view-error" hidden aria-labelledby="error-title">
+      <div class="error-box">
+        <h2 id="error-title" tabindex="-1">That did not work</h2>
+        <p id="error-text"></p>
+        <div class="paste-actions">
+          <button class="btn btn-primary btn-small" type="button" id="error-retry">Try again</button>
+          <button class="btn btn-small" type="button" id="error-back">Start over</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULT -->
+    <article class="result" id="view-result" hidden aria-labelledby="result-title">
+      <div class="result-top">
+        <button class="btn btn-small" type="button" id="back-btn">Scan another letter</button>
+      </div>
+      <div id="result-body"></div>
+    </article>
+
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p style="padding:24px">Paper Whisperer needs JavaScript to run.</p></noscript>
+
+<script src="shared/whisper.js"></script>
+<script src="data/samples.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

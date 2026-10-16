@@ -1,0 +1,12 @@
+{
+  "name": "paper-whisperer",
+  "version": "1.1.0",
+  "description": "Photograph any official letter. Get what it says, what to do and by when, in your home language.",
+  "private": true,
+  "license": "MIT",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "node --test"
+  }
+}
